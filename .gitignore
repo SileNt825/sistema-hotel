@@ -1,0 +1,26 @@
+# Arquivos de build / IDE / sistema
+/target/
+/bin/
+/out/
+/*.class
+*.log
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+.DS_Store
+
+# Maven/Gradle
+/.mvn/
+/.gradle/
+/build/
+
+# Outros
+*.jar
+*.war
+
+# Arquivos sensíveis
+credentials.properties
+*.keystore
