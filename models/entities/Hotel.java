@@ -7,130 +7,84 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Hotel {
     private String nome;
     private List<Quarto> quartos = new ArrayList<>();
     private List<Reserva> reservas = new ArrayList<>();
 
     public Hotel() {
+        // inicializa alguns quartos de exemplo
+        quartos.add(new Quarto(101, "Solteiro", 150.0));
+        quartos.add(new Quarto(102, "Casal", 200.0));
+        quartos.add(new Quarto(103, "Luxo", 350.0));
     }
 
-    public Hotel(String nome, List<Quarto> quartos, List<Reserva> reservas) {
-        this.nome = nome;
-        this.quartos = quartos;
-        this.reservas = reservas;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void adicionarQuarto(Quarto quarto) {
-        quartos.add(quarto);
-    }
-
-    public void removerQuarto(Quarto quarto) {
-        quartos.remove(quarto);
+    public void listarQuartosDisponiveis() {
+        System.out.println("\n=== Lista de Quartos ===");
+        for (Quarto q : quartos) {
+            System.out.println(q);
+        }
     }
 
     public boolean estaDisponivel(Quarto quarto, LocalDate checkIn, LocalDate checkOut) {
-        for (Reserva reserva : reservas) {
-            if (reserva.getQuarto().equals(quarto) && !(checkOut.isBefore(reserva.getDataCheckIn()) || checkIn.isAfter(reserva.getDataCheckOut()))) {
+        for (Reserva r : reservas) {
+            if (r.getQuarto().equals(quarto) &&
+                    !(checkOut.isBefore(r.getDataCheckIn()) || checkIn.isAfter(r.getDataCheckOut()))) {
                 return false;
             }
         }
         return true;
     }
 
-    public void fazerReserva(Hospede hospede, int numeroQuarto, LocalDate dataCheckIn, LocalDate dataCheckOut, Quarto quartoSelecionado) {
+    public void fazerReserva(Hospede hospede, int numeroQuarto, LocalDate dataCheckIn, LocalDate dataCheckOut) {
+        for (Quarto q : quartos) {
+            if (q.getNumero() == numeroQuarto) {
 
-        if(!estaDisponivel(quartoSelecionado, dataCheckIn, dataCheckOut)){
-            System.out.println("Quarto indisponível nesse período!");
+                if (!estaDisponivel(q, dataCheckIn, dataCheckOut) || q.isOcupado()) {
+                    System.out.println("Quarto indisponível!");
+                    return;
+                }
 
-        }
+                Reserva novaReserva = new Reserva(hospede, q, dataCheckIn, dataCheckOut, StatusReverva.PENDENTE);
+                reservas.add(novaReserva);
+                q.setOcupado(true);
 
-        quartoSelecionado = null;
-
-        for (Quarto quarto : quartos) {
-            if (quarto.getNumero() == numeroQuarto) {
-                quartoSelecionado = quarto;
-                break;
+                System.out.println("Reserva criada com sucesso!");
+                return;
             }
         }
-
-        if (quartoSelecionado == null) {
-            System.out.println("Quarto não encontrado");
-
-        }
-
-        Reserva novaReserva = new Reserva(hospede, quartoSelecionado, dataCheckIn, dataCheckOut, StatusReverva.PENDENTE);
-        reservas.add(novaReserva);
-
-        quartoSelecionado.setOcupado(true);
-
-        System.out.println("Reserva criada com sucesso!");
+        System.out.println("Quarto não encontrado!");
     }
 
     public void cancelarReserva(Reserva reserva) {
         if (reserva == null) {
-            System.out.println("Reserva cancelada;");
+            System.out.println("Reserva não encontrada!");
             return;
         }
-            reserva.setStatusReverva(StatusReverva.CANCELADA);
-            reserva.getQuarto().setOcupado(false);
+        reserva.setStatusReverva(StatusReverva.CANCELADA);
+        reserva.getQuarto().setOcupado(false);
+        System.out.println("Reserva cancelada com sucesso!");
+    }
 
-            System.out.println("Reserva cancelada com sucesso");
-
-        }
-
-        public void listarReservas(){
-            if(reservas.isEmpty()){
-                System.out.println("nenhuma reserva encontrada. ");
-                return;
-            }
-
-            for(Reserva reserva : reservas){
-                System.out.println(reserva);
-            }
-        }
-
-        public Reserva buscarReservaPorHospede(String cpf){
-            for(Reserva reserva : reservas){
-                Hospede hospede = reserva.getHospede();
-                if(hospede.getCpf().equals(cpf)){
-                    return reserva;
-                }
-            }
+    public void listarReservas() {
+        if (reservas.isEmpty()) {
             System.out.println("Nenhuma reserva encontrada.");
-            return null;
+            return;
         }
+        System.out.println("\n=== Reservas Atuais ===");
+        for (Reserva r : reservas) {
+            System.out.println(r);
+        }
+    }
 
-        public void listarQuartosDisponiveis(){
-
-        for(Quarto quarto: quartos){
-            if(!quarto.isOcupado()){
-                System.out.println("Quarto disponível " + quarto);
-
-            } else {
-                System.out.println("Quarto indisponível.");
+    public Reserva buscarReservaPorHospede(String cpf) {
+        for (Reserva r : reservas) {
+            if (r.getHospede().getCpf().equals(cpf)) {
+                return r;
             }
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "nome='" + nome + '\'' +
-                ", quartos=" + quartos.size() +
-                ", reservas=" + reservas.size() +
-                '}';
-    }
-
-    public void fazerReserva(Hospede hospede, int numeroQuarto, LocalDate dataCheckIn, LocalDate dateCheckOut) {
+        return null;
     }
 }
 

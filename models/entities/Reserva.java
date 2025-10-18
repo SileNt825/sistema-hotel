@@ -12,8 +12,7 @@ public class Reserva {
     private LocalDate dataCheckOut;
     private StatusReverva statusReverva;
 
-    public Reserva(){
-    }
+    public Reserva() {}
 
     public Reserva(Hospede hospede, Quarto quarto, LocalDate dataCheckIn, LocalDate dataCheckOut, StatusReverva statusReverva) {
         this.hospede = hospede;
@@ -26,36 +25,20 @@ public class Reserva {
     public Hospede getHospede() {
         return hospede;
     }
-
-    public void setHospede(Hospede hospede) {
-        this.hospede = hospede;
-    }
-
-    public Quarto getQuarto() {
+    public Quarto getQuarto()
+    {
         return quarto;
     }
-
-    public void setQuarto(Quarto quarto) {
-        this.quarto = quarto;
-    }
-
-    public LocalDate getDataCheckIn() {
+    public LocalDate getDataCheckIn()
+    {
         return dataCheckIn;
     }
-
-    public void setDataCheckIn(LocalDate dataCheckIn) {
-        this.dataCheckIn = dataCheckIn;
-    }
-
-    public LocalDate getDataCheckOut() {
+    public LocalDate getDataCheckOut()
+    {
         return dataCheckOut;
     }
-
-    public void setDataCheckOut(LocalDate dataCheckOut) {
-        this.dataCheckOut = dataCheckOut;
-    }
-
-    public StatusReverva getStatusReverva() {
+    public StatusReverva getStatusReverva()
+    {
         return statusReverva;
     }
 
@@ -66,12 +49,9 @@ public class Reserva {
     @Override
     public String toString() {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return "Reserva{" +
-                "hospede=" + hospede +
-                ", quarto=" + quarto.getNumero() +
-                ", dataCheckIn=" + dataCheckIn.format(fmt) +
-                ", dataCheckOut=" + dataCheckOut.format(fmt) +
-                ", statusReverva=" + statusReverva +
-                '}';
+        return "Reserva: " + hospede + ", " + quarto + ", " +
+                "Check-in: " + dataCheckIn.format(fmt) +
+                ", Check-out: " + dataCheckOut.format(fmt) +
+                ", Status: " + statusReverva;
     }
 }

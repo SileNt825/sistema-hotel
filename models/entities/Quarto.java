@@ -1,63 +1,40 @@
 package sistemaRevervasHotel.models.entities;
 
-import sistemaRevervasHotel.models.enums.tipoDeQuarto;
 
 public class Quarto {
     private Integer numero;
-    private tipoDeQuarto quarto;
-    private double precoDaDiaria;
+    private String tipo;
+    private double precoDiaria;
     private boolean ocupado;
 
-    public Quarto(){
-    }
+    public Quarto() {}
 
-    public Quarto(Integer numero, tipoDeQuarto quarto, double precoDaDiaria, boolean ocupado) {
+    public Quarto(int numero, String tipo, double precoDiaria) {
         this.numero = numero;
-        this.quarto = quarto;
-        this.precoDaDiaria = precoDaDiaria;
-        this.ocupado = ocupado;
+        this.tipo = tipo;
+        this.precoDiaria = precoDiaria;
+        this.ocupado = false;
     }
 
-    public Integer getNumero() {
-        return numero;
-    }
+    public Integer getNumero() { return numero; }
+    public void setNumero(Integer numero) { this.numero = numero; }
 
-    public void setNumero(Integer numero) {
-        this.numero = numero;
-    }
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
 
-    public tipoDeQuarto getQuarto() {
-        return quarto;
-    }
+    public double getPrecoDiaria() { return precoDiaria; }
+    public void setPrecoDiaria(double precoDiaria) { this.precoDiaria = precoDiaria; }
 
-    public void setQuarto(tipoDeQuarto quarto) {
-        this.quarto = quarto;
-    }
+    public boolean isOcupado() { return ocupado; }
+    public void setOcupado(boolean ocupado) { this.ocupado = ocupado; }
 
-    public double getPrecoDaDiaria() {
-        return precoDaDiaria;
-    }
-
-    public void setPrecoDaDiaria(double precoDaDiaria) {
-        this.precoDaDiaria = precoDaDiaria;
-    }
-
-    public boolean isOcupado() {
-        return ocupado;
-    }
-
-    public void setOcupado(boolean ocupado) {
-        this.ocupado = ocupado;
+    public double calcularPrecoDiaria() {
+        return precoDiaria; // você pode melhorar para calcular pelo número de dias
     }
 
     @Override
     public String toString() {
-        return "Quarto{" +
-                "numero=" + numero +
-                ", quarto=" + quarto +
-                ", precoDaDiaria= R$" + precoDaDiaria +
-                ", " + (ocupado ? "Ocupado" : "Disponível" + "}");
-
+        String status = ocupado ? "OCUPADO" : "DISPONÍVEL";
+        return "Quarto " + numero + " (" + tipo + ") - R$" + precoDiaria + " - " + status;
     }
 }
-

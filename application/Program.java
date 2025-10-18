@@ -7,7 +7,6 @@ import sistemaRevervasHotel.models.entities.Reserva;
 import java.time.LocalDate;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Scanner;
 
 public class Program {
@@ -18,7 +17,7 @@ public class Program {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
+        Hotel hotel = new Hotel();
 
         boolean rodando = true;
 
@@ -34,7 +33,7 @@ public class Program {
             int escolherNumeroParaSistemaDeReservas = sc.nextInt();
             sc.nextLine();
 
-            Hotel hotel = new Hotel();
+
             switch (escolherNumeroParaSistemaDeReservas) {
                 case 1:
                     hotel.listarQuartosDisponiveis();
@@ -45,7 +44,7 @@ public class Program {
                     String nome = sc.nextLine();
                     System.out.println("Digite o CPF do hóspede: ");
                     String cpf = sc.nextLine();
-                    Hospede hospede = new Hospede();
+                    Hospede hospede = new Hospede(nome, cpf);
 
                     System.out.println("Digite o numero do quarto: ");
                     int numeroQuarto = sc.nextInt();
@@ -71,11 +70,13 @@ public class Program {
                     hotel.listarReservas();
                     break;
 
-                case 5:
+                case 0:
                     rodando = false;
+                    break;
 
                 default:
                     System.out.println("Opção inválida!");
+
 
                     sc.close();
                     System.out.println("Sistema encerrado.");
