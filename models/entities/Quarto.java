@@ -1,13 +1,15 @@
 package sistemaRevervasHotel.models.entities;
 
 
+import sistemaRevervasHotel.models.enums.tipoDeQuarto;
+
 public class Quarto {
     private Integer numero;
     private String tipo;
     private double precoDiaria;
     private boolean ocupado;
+    private tipoDeQuarto tipoDeQuarto;
 
-    public Quarto() {}
 
     public Quarto(int numero, String tipo, double precoDiaria) {
         this.numero = numero;
@@ -15,21 +17,50 @@ public class Quarto {
         this.precoDiaria = precoDiaria;
         this.ocupado = false;
     }
+    public Quarto(int numero, tipoDeQuarto tipoDeQuarto, double precoDiaria){
+        this.numero = numero;
+        this.tipoDeQuarto = tipoDeQuarto;
+        this.precoDiaria = precoDiaria;
+        this.ocupado = false;
+    }
 
-    public Integer getNumero() { return numero; }
-    public void setNumero(Integer numero) { this.numero = numero; }
+    public Integer getNumero() {
+        return numero; }
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
 
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
+    public String getTipo() {
+        return tipo;
+    }
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
-    public double getPrecoDiaria() { return precoDiaria; }
-    public void setPrecoDiaria(double precoDiaria) { this.precoDiaria = precoDiaria; }
+    public double getPrecoDiaria() {
+        return precoDiaria;
+    }
+    public void setPrecoDiaria(double precoDiaria)
+    { this.precoDiaria = precoDiaria;
+    }
 
-    public boolean isOcupado() { return ocupado; }
-    public void setOcupado(boolean ocupado) { this.ocupado = ocupado; }
+    public boolean isOcupado() {
+        return ocupado;
+    }
+    public void setOcupado(boolean ocupado) {
+        this.ocupado = ocupado;
+    }
 
     public double calcularPrecoDiaria() {
         return precoDiaria; // você pode melhorar para calcular pelo número de dias
+    }
+
+    public tipoDeQuarto getTipoDeQuarto() {
+        return tipoDeQuarto;
+    }
+
+    public void setTipoDeQuarto(tipoDeQuarto tipoDeQuarto) {
+        this.tipoDeQuarto = tipoDeQuarto;
     }
 
     @Override

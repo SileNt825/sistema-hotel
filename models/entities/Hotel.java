@@ -1,6 +1,7 @@
 package sistemaRevervasHotel.models.entities;
 
 import sistemaRevervasHotel.models.enums.StatusReverva;
+import sistemaRevervasHotel.models.enums.tipoDeQuarto;
 
 
 import java.time.LocalDate;
@@ -10,14 +11,14 @@ import java.util.List;
 
 public class Hotel {
     private String nome;
-    private List<Quarto> quartos = new ArrayList<>();
-    private List<Reserva> reservas = new ArrayList<>();
+    private final List<Quarto> quartos = new ArrayList<>();
+    private final List<Reserva> reservas = new ArrayList<>();
 
     public Hotel() {
         // inicializa alguns quartos de exemplo
-        quartos.add(new Quarto(101, "Solteiro", 150.0));
-        quartos.add(new Quarto(102, "Casal", 200.0));
-        quartos.add(new Quarto(103, "Luxo", 350.0));
+        quartos.add(new Quarto(101, tipoDeQuarto.SOLTEIRO.toString(), 150.0));
+        quartos.add(new Quarto(102, tipoDeQuarto.CASAL.toString()   , 200.0));
+        quartos.add(new Quarto(103, tipoDeQuarto.LUXO.toString(), 350.0));
     }
 
     public void listarQuartosDisponiveis() {
@@ -46,7 +47,7 @@ public class Hotel {
                     return;
                 }
 
-                Reserva novaReserva = new Reserva(hospede, q, dataCheckIn, dataCheckOut, StatusReverva.PENDENTE);
+                Reserva novaReserva = new Reserva(hospede, q, dataCheckIn, dataCheckOut, StatusReverva.CONFIRMADA);
                 reservas.add(novaReserva);
                 q.setOcupado(true);
 
