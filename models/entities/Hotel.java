@@ -4,15 +4,19 @@ import sistemaRevervasHotel.models.enums.StatusReverva;
 import sistemaRevervasHotel.models.enums.tipoDeQuarto;
 
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class Hotel {
     private String nome;
     private final List<Quarto> quartos = new ArrayList<>();
     private final List<Reserva> reservas = new ArrayList<>();
+    private final List<Avaliacao> avaliacoes = new ArrayList<>();
+    private Reserva reserva;
 
     public Hotel() {
         // inicializa alguns quartos de exemplo
@@ -20,6 +24,7 @@ public class Hotel {
         quartos.add(new Quarto(102, tipoDeQuarto.CASAL.toString()   , 200.0));
         quartos.add(new Quarto(103, tipoDeQuarto.LUXO.toString(), 350.0));
     }
+
 
     public void listarQuartosDisponiveis() {
         System.out.println("\n=== Lista de Quartos ===");
@@ -87,7 +92,65 @@ public class Hotel {
         }
         return null;
     }
-}
+    public void adicionarAvaliacao(Scanner sc){
+        System.out.println("===Fazer avaliaçao===");
+
+        System.out.println("Digite o cpf do hospede");
+        String cpf = sc.nextLine();
+
+        Reserva reserva = buscarReservaPorHospede(cpf);
+        if(reserva == null){
+            System.out.println("Nenhuma reserva encontrada.");
+            return;
+        }
+        int nota = 0;
+        while(nota < 1 || nota > 5) {
+            System.out.println("Nos avalie com nota de 1 a 5");
+            nota = sc.nextInt();
+            sc.nextLine();
+        }
+
+        System.out.println("Digite um comentário (opcional)");
+        String comentario = sc.nextLine();
+
+        Avaliacao avaliacao = new Avaliacao(
+                reserva.getHospede(),
+                reserva.getQuarto(),
+                nota,
+                comentario
+        );
+        avaliacoes.add(avaliacao);
+        System.out.println("Avaliação registrada com sucesso");
+
+    }
+
+    public void listarAvaliacoes(){
+        if(avaliacoes.isEmpty()){
+            System.out.println("Não ha avaliações cadastradas.");
+            return;
+        }
+
+
+
+            for(Avaliacao avaliacao : avaliacoes){
+                String nomeHospede = "Hospede Desconhecido";
+                if(avaliacao.getHospede() != null && avaliacao.getHospede().getNome() != null) {
+                    nomeHospede = avaliacao.getHospede().getNome();
+                }
+                String quartoInfo = "não encontrado";
+                if(avaliacao.getQuarto() != null) {
+                    quartoInfo = String.valueOf(avaliacao.getQuarto().getNumero());
+                }
+                System.out.println("Avaliação de " + nomeHospede);
+                System.out.println("Quarto: " + quartoInfo);
+                System.out.println("Nota: " + avaliacao.getNota());
+                System.out.println("Comentário: " + avaliacao.getComentario());
+                System.out.println("----------------------------------------");
+            }
+        }
+    }
+
+
 
 
 

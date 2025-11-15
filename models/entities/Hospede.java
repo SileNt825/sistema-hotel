@@ -25,6 +25,8 @@ public class Hospede {
         this.cpf = cpf;
     }
 
+
+
     @Override
     public String toString() {
         return nome + " (CPF: " + cpf + ")";

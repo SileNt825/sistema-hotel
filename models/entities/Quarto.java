@@ -65,7 +65,7 @@ public class Quarto {
 
     @Override
     public String toString() {
-        String status = ocupado ? "OCUPADO" : "DISPONÍVEL";
+        String status = ocupado ? "OCUPADO" : "DISPONIVEL";
         return "Quarto " + numero + " (" + tipo + ") - R$" + precoDiaria + " - " + status;
     }
 }

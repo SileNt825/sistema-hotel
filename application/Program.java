@@ -20,6 +20,8 @@ public class Program {
         Hotel hotel = new Hotel();
         SistemaLogin login = new SistemaLogin();
 
+
+
         boolean rodando = true;
 
         while (rodando) {
@@ -32,6 +34,8 @@ public class Program {
             System.out.println("6 - Listar reservas");
             System.out.println("7 - listar usuários");
             System.out.println("8 - Fazer logout");
+            System.out.println("9 - Avaliar");
+            System.out.println("10 - Listar avaliações");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -98,6 +102,12 @@ public class Program {
                 case 8:
                     login.logout();
                     break;
+
+                case 9:
+                    hotel.adicionarAvaliacao(sc);
+                    break;
+                case 10:
+                    hotel.listarAvaliacoes();
 
                 case 0:
                     rodando = false;
